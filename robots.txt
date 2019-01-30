@@ -1,0 +1,6 @@
+User-agent: * 
+Disallow: /termsofuse
+Disallow: /getestimate
+Disallow: /roofing-contractors
+Disallow: /privacy-policy
+Disallow: /media

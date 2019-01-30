@@ -1,0 +1,42 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: myroof-web
+  namespace: homeowner-myroof
+  labels:
+    name: myroof-web
+spec:  
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: myroof-web
+    spec:
+      containers:
+      - name: myroof-web
+        image: aksqause.azurecr.io/gaf.myroof.ms.web:7744
+        ports:
+        - containerPort:  80                
+      restartPolicy: Always      
+      imagePullSecrets:
+      - name: gafdevreg            
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: myroof-web-svc
+  namespace: homeowner-myroof
+spec:
+  ports:
+    # the port that this service should serve on
+    - port: 80
+      protocol: TCP
+  # label keys and values that must match in order to receive traffic for this service
+  selector:
+    name: myroof-web    
+  type: ClusterIP

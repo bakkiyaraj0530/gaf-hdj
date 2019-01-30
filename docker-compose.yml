@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  gaf.myroof.web:
+    image: ${DOCKER_REGISTRY}gafmyroofweb
+    build:
+      context: .
+      dockerfile: GAF.MyRoof.com/Dockerfile
